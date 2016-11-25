@@ -2,7 +2,7 @@
  * Created by Palash on 11/24/2016.
  */
 
-var Aspect = {
+var BasicAspect = {
     before: function (pointcut, before) {
         return function () {
             before();
