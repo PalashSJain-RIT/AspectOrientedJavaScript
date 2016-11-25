@@ -6,6 +6,22 @@
     <script src="../src/BasicAspect.js" type="application/javascript"></script>
     <script src="main.js" type="application/javascript"></script>
     <script src="alter.js" type="application/javascript"></script>
+
+    <script>
+        function multiply(x, y){
+            console.log(x + " * " + y + " is " + Calculator.prototype.multiply(x, y));
+        }
+
+        function divide(x, y){
+            console.log(x + " / " + y + " is " + Calculator.prototype.divide(x, y));
+        }
+
+        function subtract(x, y){
+            console.log(x + " - " + y + " is " + Calculator.prototype.subtract(x, y));
+        }
+
+    </script>
+
 </head>
 <body>
 
@@ -16,9 +32,9 @@
 
 <br>
 <h3>Function Objects</h3>
-<input type="button" value="Divide - Before" onclick="Calculator.prototype.divide(1, 0);"/>
-<input type="button" value="Subtract - Around" onclick="Calculator.prototype.subtract();"/>
-<input type="button" value="Multiple - After" onclick="Calculator.prototype.multiply();"/>
+<input type="button" value="1/0 - Before" onclick="divide(1, 2);"/>
+<input type="button" value="5-3 - Around" onclick="subtract(5, 3);"/>
+<input type="button" value="2*3 - After" onclick="multiply(2,3)"/>
 
 </body>
 </html>

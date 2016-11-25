@@ -27,9 +27,9 @@ var BasicAspect = {
                 }
                 console.log("Exception thrown from before advice: " + e)
             }
-            var temp = pointcut.call(this, arguments);
+            var temp = pointcut.apply(this, arguments);
             try {
-                after();
+                after(temp);
             } catch (e) {
                 if (e instanceof BasicAspectException && e.isFatal) {
                     throw e;
@@ -42,9 +42,9 @@ var BasicAspect = {
 
     after: function (pointcut, after) {
         return function () {
-            var temp = pointcut.call(this, arguments);
+            var temp = pointcut.apply(this, arguments);
             try {
-                after();
+                after(temp);
             } catch (e) {
                 if (e instanceof BasicAspectException && e.isFatal) {
                     throw e;
@@ -57,11 +57,13 @@ var BasicAspect = {
 
     afterThrowing: function (pointcut, after) {
         return function () {
+            var temp;
             try {
-                return pointcut.apply(this, arguments)
+                temp = pointcut.apply(this, arguments);
+                return temp;
             } catch (e) {
                 try {
-                    after();
+                    after(temp);
                 } catch (e) {
                     if (e instanceof BasicAspectException && e.isFatal) {
                         throw e;
