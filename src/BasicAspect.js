@@ -5,16 +5,28 @@
 var BasicAspect = {
     before: function (pointcut, before) {
         return function () {
-            before();
+            try{
+                before();
+            } catch (e) {
+                console.log("Exception thrown from before advice: " + e)
+            }
             return pointcut.apply(this, arguments);
         }
     },
 
     around: function (pointcut, before, after) {
         return function () {
-            before();
+            try{
+                before();
+            } catch (e) {
+                console.log("Exception thrown from before advice: " + e)
+            }
             var temp = pointcut.apply(this, arguments);
-            after();
+            try{
+                after();
+            } catch (e) {
+                console.log("Exception thrown from after advice: " + e)
+            }
             return temp;
         }
     },
@@ -22,7 +34,11 @@ var BasicAspect = {
     after: function (pointcut, after) {
         return function () {
             var temp = pointcut.apply(this, arguments);
-            after();
+            try{
+                after();
+            } catch (e) {
+                console.log("Exception thrown from after advice: " + e)
+            }
             return temp;
         }
     },
@@ -32,7 +48,11 @@ var BasicAspect = {
             try {
                 return pointcut.apply(this, arguments)
             } catch (e) {
-                after();
+                try{
+                    after();
+                } catch (e) {
+                    console.log("Exception thrown from after advice: " + e)
+                }
                 throw e;
             }
         }
