@@ -25,5 +25,16 @@ var BasicAspect = {
             after();
             return temp;
         }
+    },
+
+    afterThrowing: function (pointcut, after){
+        return function () {
+            try {
+                return pointcut.apply(this, arguments)
+            } catch (e) {
+                after();
+                throw e;
+            }
+        }
     }
 };
