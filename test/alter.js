@@ -40,3 +40,10 @@ Calculator.prototype.subtract = BasicAspect.after(Calculator.prototype.subtract,
         console.log("Subtracting " + digits[0] + " from " + digits[1] + " gives " + temp);
     }
 });
+
+demoStackTrace = BasicAspect.before(demoStackTrace, function () {
+    console.log("demoStackTrace was called from " + demoStackTrace.caller.name);
+    console.log(demoStackTrace.caller.name + " was called from " + demoStackTrace.caller.caller.name);
+    console.log("Arguments passed to " + demoStackTrace.caller.name + " function were " + Array.from(demoStackTrace.caller.arguments));
+    console.log("Arguments passed to " + demoStackTrace.caller.caller.name + " function were " + Array.from(demoStackTrace.caller.caller.arguments));
+});

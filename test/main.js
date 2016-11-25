@@ -29,3 +29,7 @@ Calculator.prototype = {
         return x / y;
     },
 };
+
+function demoStackTrace(x, y){
+    console.log("x: " + x + " | y: " + y + " from demoStackTrace");
+}

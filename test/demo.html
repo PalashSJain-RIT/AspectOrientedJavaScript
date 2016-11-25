@@ -20,6 +20,17 @@
             console.log(x + " - " + y + " is " + Calculator.prototype.subtract(x, y));
         }
 
+        function showThem(a, b){
+            console.log("a: " + a + " | b: " + b + " to showThem");
+            x = a + 2;
+            y = b + 2;
+            return showThemPlease(x, y);
+        }
+
+        function showThemPlease(x, y){
+            console.log("x: " + x + " | y: " + y + " to showThemPlease");
+            return demoStackTrace(x, y);
+        }
     </script>
 
 </head>
@@ -35,6 +46,13 @@
 <input type="button" value="1/0 - Before" onclick="divide(1, 2);"/>
 <input type="button" value="5-3 - Around" onclick="subtract(5, 3);"/>
 <input type="button" value="2*3 - After" onclick="multiply(2,3)"/>
+
+<br><br>
+<span>
+    Passing values 2 and 3 to function addThem.<br>
+    These values are increased by 2 and then added.<br>
+</span>
+<input type="button" value="ShowThem(2,3) - Before" onclick="showThem(2,3)"/>
 
 </body>
 </html>
