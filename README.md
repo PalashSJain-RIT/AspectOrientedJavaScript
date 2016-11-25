@@ -1,1 +1,1 @@
-# AspectOrientedJavaScript
+# Aspect Oriented JavaScript
