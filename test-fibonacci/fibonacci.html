@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculating Fibonacci Value</title>
+    <script src="main.js" type="application/javascript"></script>
+    <script src="alter.js" type="application/javascript"></script>
+    <script>
+        function calculateFibonacciWithAOP() {
+            var dig = document.getElementsByName('numWithAOP')[0].value;
+            alert(calculateFibWithAOP(dig));
+        }
+
+        function calculateFibonacciWithoutAOP() {
+            var dig = document.getElementsByName('numWithoutAOP')[0].value;
+            alert(calculateFibWithoutAOP(dig));
+        }
+    </script>
+</head>
+<body>
+Calculate Fibonacci With AOP:<input type="number" name="numWithAOP"><input type="button" value="Submit" onclick="calculateFibonacciWithAOP()">
+<br>
+Calculate Fibonacci Without AOP:<input type="number" name="numWithoutAOP"><input type="button" value="Submit" onclick="calculateFibonacciWithoutAOP()">
+</body>
+</html>
