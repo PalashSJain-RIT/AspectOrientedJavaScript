@@ -8,23 +8,24 @@ function doBefore(num) {
 
 function doAround(){
     console.log("doing stuff around");
+    return 3;
 }
 
 function doAfter(){
     console.log("doing stuff after");
 }
 
-var Thing = {};
-Thing.prototype = {
-    doBeforeThing: function () {
-        console.log("doBeforeThing");
+var Calculator = {};
+Calculator.prototype = {
+    multiply: function (x, y) {
+        return x * y;
     },
 
-    doAfterThing: function () {
-        console.log("doAfterThing");
+    subtract: function (x, y) {
+        return x - y;
     },
 
-    doAroundThing: function () {
-        console.log("doAroundThing");
+    divide: function (x, y) {
+        console.log(x / y);
     }
 };

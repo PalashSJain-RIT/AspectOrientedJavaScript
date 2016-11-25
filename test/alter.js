@@ -2,7 +2,7 @@
  * Created by Palash on 11/24/2016.
  */
 
-// Overriding normal functions
+// Overriding function declarations
 doBefore = BasicAspect.before(doBefore, function () {
     console.log("Argument object passed to doBefore was " + doBefore.arguments);
 });
@@ -17,18 +17,10 @@ doAfter = BasicAspect.after(doAfter, function () {
     console.log("Argument object passed to doAfter was " + doAfter.arguments);
 });
 
-
-// Overriding Function objects
-Thing.prototype.doBeforeThing = BasicAspect.before(Thing.prototype.doBeforeThing, function () {
-    console.log("Before doBeforeThing.");
-});
-
-Thing.prototype.doAfterThing = BasicAspect.after(Thing.prototype.doAfterThing, function () {
-    console.log("After doAfterThing.");
-});
-
-Thing.prototype.doAroundThing = BasicAspect.around(Thing.prototype.doAroundThing, function () {
-    console.log("Before doAroundThing.");
-}, function () {
-    console.log("After doAroundThing.");
+// Overriding Function expressions
+Calculator.prototype.divide = BasicAspect.before(this, function () {
+    var digits = Array.from(Calculator.prototype.divide.arguments);
+    if (digits && digits.length == 2 && digits[1] == 0) {
+        throw new BasicAspectException("fatal", "Cannot divide by 0.");
+    }
 });

@@ -8,14 +8,17 @@
     <script src="alter.js" type="application/javascript"></script>
 </head>
 <body>
+
 <h3>Normal Functions</h3>
 <input type="button" value="Before" onclick="doBefore();"/>
 <input type="button" value="Around" onclick="doAround();"/>
 <input type="button" value="After" onclick="doAfter();"/>
+
 <br>
 <h3>Function Objects</h3>
-<input type="button" value="Before" onclick="Thing.prototype.doBeforeThing();"/>
-<input type="button" value="Around" onclick="Thing.prototype.doAroundThing();"/>
-<input type="button" value="After" onclick="Thing.prototype.doAfterThing();"/>
+<input type="button" value="Divide - Before" onclick="Calculator.prototype.divide(1, 0);"/>
+<input type="button" value="Subtract - Around" onclick="Calculator.prototype.subtract();"/>
+<input type="button" value="Multiple - After" onclick="Calculator.prototype.multiply();"/>
+
 </body>
 </html>
