@@ -3,6 +3,7 @@
  */
 
 // This is called twice, due to how Promises work.
-Promise.prototype.then = BasicAspect.before(Promise.prototype.then, function(){
+let pPromiseThen = new Pointcut("then", Promise.prototype);
+pPromiseThen.before(function(){
     console.log("Before Promise.then");
-})
+});
