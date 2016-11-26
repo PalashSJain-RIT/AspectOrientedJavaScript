@@ -37,15 +37,15 @@
 <body>
 
 <h3>Normal Functions</h3>
-<input type="button" value="Before" onclick="doBefore();"/>
+<input type="button" value="Before" onclick="doBefore(2, 3);"/>
 <input type="button" value="Around" onclick="doAround();"/>
 <input type="button" value="After" onclick="doAfter();"/>
 
 <br>
 <h3>Function Objects</h3>
-<input type="button" value="1/0 - Before" onclick="divide(1, 2);"/>
-<input type="button" value="5-3 - Around" onclick="subtract(5, 3);"/>
-<input type="button" value="2*3 - After" onclick="multiply(2,3)"/>
+<input type="button" value="0/1 - Before" onclick="divide(1, 2);"/>
+<input type="button" value="5-3 - After" onclick="subtract(5, 3);"/>
+<input type="button" value="2*3 - Around" onclick="multiply(2,0)"/>
 
 <br><br>
 <span>
