@@ -2,88 +2,65 @@
  * Created by Palash on 11/24/2016.
  */
 
-var BasicAspect = {
-    before: function (pointcut, before) {
-        return function () {
-            try {
-                before();
-            } catch (e) {
-                if (e instanceof BasicAspectException && e.isFatal) {
-                    throw e;
-                }
-                console.log("Exception thrown from before advice: " + e.message);
-            }
-            return pointcut.apply(this, arguments);
+function before(pointcut, advice){
+    return function () {
+        try {
+            advice();
+        } catch (e) {
+            console.log("Exception thrown from before advice: " + e.message);
         }
-    },
+        return pointcut.apply(this, arguments);
+    }
+}
 
-    around: function (pointcut, before, after) {
-        return function () {
-            try {
-                before();
-            } catch (e) {
-                if (e instanceof BasicAspectException && e.isFatal) {
-                    throw e;
-                }
-                console.log("Exception thrown from before advice: " + e)
-            }
-            var temp = pointcut.apply(this, arguments);
-            try {
-                after(temp);
-            } catch (e) {
-                if (e instanceof BasicAspectException && e.isFatal) {
-                    throw e;
-                }
-                console.log("Exception thrown from after advice: " + e)
-            }
-            return temp;
+function after(pointcut, advice){
+    return function () {
+        var temp = pointcut.apply(this, arguments);
+        try {
+            advice(temp);
+        } catch (e) {
+            console.log("Exception thrown from after advice: " + e.message);
+            throw e;
         }
-    },
+        return temp;
+    }
+}
 
-    after: function (pointcut, after) {
-        return function () {
-            var temp = pointcut.apply(this, arguments);
-            try {
-                after(temp);
-            } catch (e) {
-                if (e instanceof BasicAspectException && e.isFatal) {
-                    throw e;
-                }
-                console.log("Exception thrown from after advice: " + e)
-            }
-            return temp;
-        }
-    },
+class Pointcut {
+    constructor(fn, context) {
+        this.fn = fn;
+        this.context = context;
+    }
 
-    afterThrowing: function (pointcut, after) {
-        return function () {
-            var temp;
-            try {
-                temp = pointcut.apply(this, arguments);
-                return temp;
-            } catch (e) {
-                try {
-                    after(temp);
-                } catch (e) {
-                    if (e instanceof BasicAspectException && e.isFatal) {
-                        throw e;
-                    }
-                    console.log("Exception thrown from after advice: " + e)
-                }
-                throw e;
+    pointcut(){
+        return this.context[this.fn];
+    }
+
+    arguments(){
+        return Array.from(this.pointcut().arguments);
+    }
+
+    before(advice){
+        this.context[this.fn] = before(this.context[this.fn], advice);
+    }
+
+    after(advice){
+        this.context[this.fn] = after(this.context[this.fn], advice);
+    }
+
+    around(advice){
+        this.main = this.pointcut();
+        this.context[this.fn] = advice;
+    }
+
+    proceed(){
+        if (this.main) {
+            return this.main.apply(this, this.arguments());
+        } else {
+            throw {
+                message: "Cannot call proceed."
             }
         }
     }
-};
 
-class BasicAspectException {
-    constructor(level, message) {
-        this.level = level;
-        this.message = message;
-    }
-
-    get isFatal() {
-        console.log("Fatal Exception thrown.")
-        return this.level.toLowerCase() == 'fatal';
-    }
 }
