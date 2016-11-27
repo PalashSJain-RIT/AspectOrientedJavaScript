@@ -15,7 +15,7 @@ function before(pointcut, advice){
 
 function after(pointcut, advice){
     return function () {
-        var temp = pointcut.apply(this, arguments);
+        let temp = pointcut.apply(this, arguments);
         try {
             advice(temp);
         } catch (e) {
@@ -30,6 +30,7 @@ class Pointcut {
     constructor(fn, context) {
         this.fn = fn;
         this.context = context;
+        this.orig = this.context[this.fn];
     }
 
     pointcut(){
@@ -49,17 +50,18 @@ class Pointcut {
     }
 
     around(advice){
-        this.main = this.pointcut();
+        this.insideAround = true;
         this.context[this.fn] = advice;
     }
 
     proceed(){
-        if (this.main) {
-            return this.main.apply(this, this.arguments());
-        } else {
-            throw {
-                message: "Cannot call proceed."
-            }
+        if (this.insideAround) {
+            var temp = this.orig.apply(this, this.arguments());
+            this.insideAround = false;
+            return temp;
+        }
+        throw {
+            message: "Proceed can only be called from around advice."
         }
     }
 
