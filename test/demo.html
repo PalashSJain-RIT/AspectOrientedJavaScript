@@ -9,27 +9,32 @@
 
     <script>
         function multiply(x, y){
-            console.log(x + " * " + y + " is " + Calculator.prototype.multiply(x, y));
+            console.log("[demo.html]: " + x + " * " + y + " is " + Calculator.prototype.multiply(x, y));
         }
 
         function divide(x, y){
-            console.log(x + " / " + y + " is " + Calculator.prototype.divide(x, y));
+            console.log("[demo.html]: " + x + " / " + y + " is " + Calculator.prototype.divide(x, y));
         }
 
         function subtract(x, y){
-            console.log(x + " - " + y + " is " + Calculator.prototype.subtract(x, y));
+            console.log("[demo.html]: " + x + " - " + y + " is " + Calculator.prototype.subtract(x, y));
         }
 
         function showThem(a, b){
-            console.log("a: " + a + " | b: " + b + " to showThem");
+            console.log("[demo.html]: " + "a: " + a + " | b: " + b + " to showThem");
             x = a + 2;
             y = b + 2;
             return showThemPlease(x, y);
         }
 
         function showThemPlease(x, y){
-            console.log("x: " + x + " | y: " + y + " to showThemPlease");
+            console.log("[demo.html]: " + "x: " + x + " | y: " + y + " to showThemPlease");
             return demoStackTrace(x, y);
+        }
+
+        function displayClass(){
+            var tc = new TestClass();
+            tc.display();
         }
     </script>
 
@@ -53,6 +58,10 @@
     These values are increased by 2 and then added.<br>
 </span>
 <input type="button" value="ShowThem(2,3) - Before" onclick="showThem(2,3)"/>
+
+<br><br>
+<h3>Class Objects</h3>
+<input type="button" value="Display from Class - Before" onclick="displayClass();"/>
 
 </body>
 </html>

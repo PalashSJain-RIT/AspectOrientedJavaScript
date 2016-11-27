@@ -7,11 +7,11 @@ var promiseCount = 0;
 
 function testPromise() {
     var thisPromiseCount = ++promiseCount;
-    console.log(thisPromiseCount + ") Started (Sync code started)");
+    console.log("[main.js]: " + thisPromiseCount + ") Started (Sync code started)");
 
     var promise = new Promise(
         function (resolve, reject) {
-            console.log(thisPromiseCount + ") Promise started (Async code started)");
+            console.log("[main.js]: " + thisPromiseCount + ") Promise started (Async code started)");
             window.setTimeout(
                 function () {
                     resolve(thisPromiseCount);
@@ -25,8 +25,8 @@ function testPromise() {
         })
         .catch(
             function (reason) {
-                console.log(thisPromiseCount + ") Handle rejected promise ('+reason+') here.");
+                console.log("[main.js]: " + thisPromiseCount + ") Handle rejected promise ('+reason+') here.");
             });
 
-    console.log(thisPromiseCount + ") Promise made (Sync code terminated)");
+    console.log("[main.js]: " + thisPromiseCount + ") Promise made (Sync code terminated)");
 }

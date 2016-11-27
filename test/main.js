@@ -18,21 +18,31 @@ function doAfter(){
 var Calculator = {};
 Calculator.prototype = {
     multiply: function (x, y) {
-        console.log("Multiplying method called from the main script.");
+        console.log("[main.js]: " + "Multiplying method called from the main script.");
         return x * y;
     },
 
     subtract: function (x, y) {
-        console.log("Subtraction method called from the main script.");
+        console.log("[main.js]: " + "Subtraction method called from the main script.");
         return x - y;
     },
 
     divide: function (x, y) {
-        console.log("Division method called from the main script.");
+        console.log("[main.js]: " + "Division method called from the main script.");
         return x / y;
     },
 };
 
 function demoStackTrace(x, y){
-    console.log("x: " + x + " | y: " + y + " from demoStackTrace");
+    console.log("[main.js]: " + "x: " + x + " | y: " + y + " from demoStackTrace");
+}
+
+class TestClass{
+    constructor() {
+        this.a = "a";
+    }
+
+    display(){
+        console.log(this.a);
+    }
 }

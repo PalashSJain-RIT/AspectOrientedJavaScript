@@ -5,33 +5,33 @@
 let pBefore = new Pointcut("doBefore", window);
 pBefore.before(function(){
     if (pBefore.arguments().length == 0) {
-        console.log("No arguments were passed to doBefore.");
+        console.log("[alter.js] " + "[alter.js] " + "No arguments were passed to doBefore.");
     } else {
-        console.log("Arguments passed to doBefore was " + pBefore.arguments());
+        console.log("[alter.js] " + "[alter.js] " + "Arguments passed to doBefore was " + pBefore.arguments());
     }
 });
 
 let pAround = new Pointcut("doAround", window);
 pAround.around(function(){
-    console.log("doAround method started.");
+    console.log("[alter.js] " + "doAround method started.");
     return pAround.proceed();
 });
 
 let pAfter = new Pointcut("doAfter", window);
 pAfter.after(function(){
     if (pAfter.arguments().length == 0) {
-        console.log("No arguments were passed to doAfter.");
+        console.log("[alter.js] " + "No arguments were passed to doAfter.");
     } else {
-        console.log("Arguments passed to doBefore was " + pAfter.arguments());
+        console.log("[alter.js] " + "Arguments passed to doBefore was " + pAfter.arguments());
     }
 });
 
 let pStackTrace = new Pointcut("demoStackTrace", window);
 pStackTrace.before(function(){
-    console.log("demoStackTrace was called from " + pStackTrace.pointcut().caller.name);
-    console.log(pStackTrace.pointcut().caller.name + " was called from " + pStackTrace.pointcut().caller.caller.name);
-    console.log("Arguments passed to " + pStackTrace.pointcut().caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.arguments));
-    console.log("Arguments passed to " + pStackTrace.pointcut().caller.caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.caller.arguments));
+    console.log("[alter.js] " + "demoStackTrace was called from " + pStackTrace.pointcut().caller.name);
+    console.log("[alter.js] " + pStackTrace.pointcut().caller.name + " was called from " + pStackTrace.pointcut().caller.caller.name);
+    console.log("[alter.js] " + "Arguments passed to " + pStackTrace.pointcut().caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.arguments));
+    console.log("[alter.js] " + "Arguments passed to " + pStackTrace.pointcut().caller.caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.caller.arguments));
 });
 // demoStackTrace = Pointcut.before(demoStackTrace, function () {
 
@@ -39,34 +39,39 @@ pStackTrace.before(function(){
 
 let pMultiply = new Pointcut("multiply", Calculator.prototype);
 pMultiply.around(function(){
-    console.log("AROUND STARTED.");
+    console.log("[alter.js] " + "AROUND STARTED.");
     let temp = pMultiply.proceed();
-    console.log("the output was " + temp);
-    console.log("AROUND ENDED.");
+    console.log("[alter.js] " + "the output was " + temp);
+    console.log("[alter.js] " + "AROUND ENDED.");
     return temp;
 });
 
 let pDivide = new Pointcut("divide", Calculator.prototype);
 pDivide.before(function () {
-    console.log("BEFORE STARTED.");
+    console.log("[alter.js] " + "BEFORE STARTED.");
     let digits = pDivide.arguments();
     if (digits && digits.length == 2){
-        console.log("Divide " + digits[0] + " from " + digits[1]);
+        console.log("[alter.js] " + "Divide " + digits[0] + " from " + digits[1]);
         if (digits[1] == 0)
             throw {
                 message : "Cannot divide by 0."
             };
     }
-    console.log("BEFORE ENDED.");
+    console.log("[alter.js] " + "BEFORE ENDED.");
 });
 
 let pSubtract = new Pointcut("subtract", Calculator.prototype);
 pSubtract.after(function(output){
-    console.log("AFTER STARTED.")
+    console.log("[alter.js] " + "AFTER STARTED.")
     let digits = pSubtract.arguments();
     if (digits && digits.length == 2){
-        console.log(pSubtract.proceed());
-        console.log("Subtracting " + digits[0] + " from " + digits[1] + " gives " + output);
+        console.log("[alter.js] " + pSubtract.proceed());
+        console.log("[alter.js] " + "Subtracting " + digits[0] + " from " + digits[1] + " gives " + output);
     }
-    console.log("AFTER ENDED.")
+    console.log("[alter.js] " + "AFTER ENDED.")
 });
+
+// let tc = new Pointcut("display", TestClass);
+// tc.before(function () {
+//    console.log("[alter.js] " + "before tc");
+// });

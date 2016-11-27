@@ -5,5 +5,5 @@
 // This is called twice, due to how Promises work.
 let pPromiseThen = new Pointcut("then", Promise.prototype);
 pPromiseThen.before(function(){
-    console.log("Before Promise.then");
+    console.log("[alter.js]: " + "Before Promise.then");
 });
