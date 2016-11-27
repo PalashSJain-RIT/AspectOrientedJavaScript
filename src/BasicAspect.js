@@ -27,15 +27,14 @@ function after(pointcut, advice){
 }
 
 class Pointcut {
-    constructor(fn, context, isRegex) {
-        this.fn = fn;
+    constructor(exp, context) {
+        this.exp = exp;
         this.context = context;
-        this.isRegex = isRegex == true;
-        this.orig = this.context[this.fn];
+        this.orig = context[exp];
     }
 
     pointcut(){
-        return this.context[this.fn];
+        return this.context[this.exp];
     }
 
     arguments(){
@@ -44,35 +43,33 @@ class Pointcut {
 
     before(advice){
         this.insideAround = false;
-        if (this.isRegex) {
-            let regex = new RegExp(this.fn);
+        if (this.exp instanceof RegExp) {
             for(let func in this.context) {
-                if(regex.test(func)) {
+                if(this.exp.test(func)) {
                     this.context[func] = before(this.context[func], advice);
                 }
             }
         } else {
-            this.context[this.fn] = before(this.context[this.fn], advice);
+            this.context[this.exp] = before(this.context[this.exp], advice);
         }
     }
 
     after(advice){
         this.insideAround = false;
-        if (this.isRegex) {
-            let regex = new RegExp(this.fn);
+        if (this.exp instanceof RegExp) {
             for(let func in this.context) {
-                if(regex.test(func)) {
+                if(this.exp.test(func)) {
                     this.context[func] = after(this.context[func], advice);
                 }
             }
         } else {
-            this.context[this.fn] = after(this.context[this.fn], advice);
+            this.context[this.exp] = after(this.context[this.exp], advice);
         }
     }
 
     around(advice){
         this.insideAround = true;
-        this.context[this.fn] = advice;
+        this.context[this.exp] = advice;
     }
 
     proceed(){

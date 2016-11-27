@@ -72,7 +72,7 @@ pTestClassDisplay.before(function () {
    console.log("[alter.js] " + "before pTestClassDisplay");
 });
 
-let pTestCalculator = new Pointcut("test", Calculator.prototype, "falssss");
+let pTestCalculator = new Pointcut(new RegExp("test"), Calculator.prototype);
 pTestCalculator.before(function(){
     console.log("[alter.js] " + "Adding 'before' to all test methods in Calculator.prototype");
 });
