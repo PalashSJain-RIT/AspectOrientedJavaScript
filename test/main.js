@@ -15,7 +15,7 @@ function doAfter(){
     console.log("doAfter method called from the main script.");
 }
 
-var Calculator = {};
+let Calculator = {};
 Calculator.prototype = {
     multiply: function (x, y) {
         console.log("[main.js]: " + "Multiplying method called from the main script.");
@@ -31,6 +31,21 @@ Calculator.prototype = {
         console.log("[main.js]: " + "Division method called from the main script.");
         return x / y;
     },
+
+    testA: function(){
+        console.log("[main.js] " + "A");
+        return "a";
+    },
+
+    testB: function(){
+        console.log("[main.js] " + "B");
+        return "b";
+    },
+
+    sendAlertMessage: function(){
+        alert("[main.js] " + "Alert message.");
+    },
+
 };
 
 function demoStackTrace(x, y){

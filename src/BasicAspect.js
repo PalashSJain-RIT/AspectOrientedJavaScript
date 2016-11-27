@@ -27,9 +27,10 @@ function after(pointcut, advice){
 }
 
 class Pointcut {
-    constructor(fn, context) {
+    constructor(fn, context, isRegex) {
         this.fn = fn;
         this.context = context;
+        this.isRegex = isRegex == true;
         this.orig = this.context[this.fn];
     }
 
@@ -43,12 +44,30 @@ class Pointcut {
 
     before(advice){
         this.insideAround = false;
-        this.context[this.fn] = before(this.context[this.fn], advice);
+        if (this.isRegex) {
+            let regex = new RegExp(this.fn);
+            for(let func in this.context) {
+                if(regex.test(func)) {
+                    this.context[func] = before(this.context[func], advice);
+                }
+            }
+        } else {
+            this.context[this.fn] = before(this.context[this.fn], advice);
+        }
     }
 
     after(advice){
         this.insideAround = false;
-        this.context[this.fn] = after(this.context[this.fn], advice);
+        if (this.isRegex) {
+            let regex = new RegExp(this.fn);
+            for(let func in this.context) {
+                if(regex.test(func)) {
+                    this.context[func] = after(this.context[func], advice);
+                }
+            }
+        } else {
+            this.context[this.fn] = after(this.context[this.fn], advice);
+        }
     }
 
     around(advice){

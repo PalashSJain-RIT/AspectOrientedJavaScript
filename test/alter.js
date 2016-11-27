@@ -33,9 +33,6 @@ pStackTrace.before(function(){
     console.log("[alter.js] " + "Arguments passed to " + pStackTrace.pointcut().caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.arguments));
     console.log("[alter.js] " + "Arguments passed to " + pStackTrace.pointcut().caller.caller.name + " function were " + Array.from(pStackTrace.pointcut().caller.caller.arguments));
 });
-// demoStackTrace = Pointcut.before(demoStackTrace, function () {
-
-// });
 
 let pMultiply = new Pointcut("multiply", Calculator.prototype);
 pMultiply.around(function(){
@@ -73,4 +70,20 @@ pSubtract.after(function(output){
 let pTestClassDisplay = new Pointcut("display", TestClass.prototype);
 pTestClassDisplay.before(function () {
    console.log("[alter.js] " + "before pTestClassDisplay");
+});
+
+let pTestCalculator = new Pointcut("test", Calculator.prototype, "falssss");
+pTestCalculator.before(function(){
+    console.log("[alter.js] " + "Adding 'before' to all test methods in Calculator.prototype");
+});
+pTestCalculator.after(function(output){
+    console.log("[alter.js] " + "Adding 'after' to all test methods in Calculator.prototype " + output);
+
+});
+
+let pSuppressAlert = new Pointcut("alert", window);
+pSuppressAlert.around(function(){
+    console.log("Replaced Alert with console.log");
+    console.log("The message was");
+    console.log(pSuppressAlert.arguments()[0]);
 });
