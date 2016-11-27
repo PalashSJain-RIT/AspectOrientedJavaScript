@@ -43,28 +43,12 @@ class Pointcut {
 
     before(advice){
         this.insideAround = false;
-        if (this.exp instanceof RegExp) {
-            for(let func in this.context) {
-                if(this.exp.test(func)) {
-                    this.context[func] = before(this.context[func], advice);
-                }
-            }
-        } else {
-            this.context[this.exp] = before(this.context[this.exp], advice);
-        }
+        this.context[this.exp] = before(this.context[this.exp], advice);
     }
 
     after(advice){
         this.insideAround = false;
-        if (this.exp instanceof RegExp) {
-            for(let func in this.context) {
-                if(this.exp.test(func)) {
-                    this.context[func] = after(this.context[func], advice);
-                }
-            }
-        } else {
-            this.context[this.exp] = after(this.context[this.exp], advice);
-        }
+        this.context[this.exp] = after(this.context[this.exp], advice);
     }
 
     around(advice){

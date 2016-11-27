@@ -72,14 +72,16 @@ pTestClassDisplay.before(function () {
    console.log("[alter.js] " + "before pTestClassDisplay");
 });
 
-let pTestCalculator = new Pointcut(new RegExp("test"), Calculator.prototype);
-pTestCalculator.before(function(){
-    console.log("[alter.js] " + "Adding 'before' to all test methods in Calculator.prototype");
-});
-pTestCalculator.after(function(output){
-    console.log("[alter.js] " + "Adding 'after' to all test methods in Calculator.prototype " + output);
-
-});
+let pointcuts = [];
+for (let key in Calculator.prototype){
+    if (key.match(new RegExp("test"))) {
+        pointcuts[key] = new Pointcut(key, Calculator.prototype);
+        pointcuts[key].around(function(){
+            let output = pointcuts[key].proceed();
+            console.log(output);
+        });
+    }
+}
 
 let pSuppressAlert = new Pointcut("alert", window);
 pSuppressAlert.around(function(){
