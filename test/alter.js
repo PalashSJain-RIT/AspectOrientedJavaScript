@@ -71,7 +71,7 @@ pSubtract.after(function(output){
     console.log("[alter.js] " + "AFTER ENDED.")
 });
 
-// let tc = new Pointcut("display", TestClass);
-// tc.before(function () {
-//    console.log("[alter.js] " + "before tc");
-// });
+let pTestClassDisplay = new Pointcut("display", TestClass.prototype);
+pTestClassDisplay.before(function () {
+   console.log("[alter.js] " + "before pTestClassDisplay");
+});
