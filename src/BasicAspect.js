@@ -42,10 +42,12 @@ class Pointcut {
     }
 
     before(advice){
+        this.insideAround = false;
         this.context[this.fn] = before(this.context[this.fn], advice);
     }
 
     after(advice){
+        this.insideAround = false;
         this.context[this.fn] = after(this.context[this.fn], advice);
     }
 
@@ -56,9 +58,7 @@ class Pointcut {
 
     proceed(){
         if (this.insideAround) {
-            var temp = this.orig.apply(this, this.arguments());
-            this.insideAround = false;
-            return temp;
+            return this.orig.apply(this, this.arguments());
         }
         throw {
             message: "Proceed can only be called from around advice."

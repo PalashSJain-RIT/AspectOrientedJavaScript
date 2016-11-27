@@ -5,9 +5,9 @@
 let pBefore = new Pointcut("doBefore", window);
 pBefore.before(function(){
     if (pBefore.arguments().length == 0) {
-        console.log("[alter.js] " + "[alter.js] " + "No arguments were passed to doBefore.");
+        console.log("[alter.js] " + "No arguments were passed to doBefore.");
     } else {
-        console.log("[alter.js] " + "[alter.js] " + "Arguments passed to doBefore was " + pBefore.arguments());
+        console.log("[alter.js] " + "Arguments passed to doBefore was " + pBefore.arguments());
     }
 });
 
@@ -65,7 +65,6 @@ pSubtract.after(function(output){
     console.log("[alter.js] " + "AFTER STARTED.")
     let digits = pSubtract.arguments();
     if (digits && digits.length == 2){
-        console.log("[alter.js] " + pSubtract.proceed());
         console.log("[alter.js] " + "Subtracting " + digits[0] + " from " + digits[1] + " gives " + output);
     }
     console.log("[alter.js] " + "AFTER ENDED.")
