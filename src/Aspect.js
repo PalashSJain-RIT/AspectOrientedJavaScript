@@ -8,12 +8,12 @@ var Pointcut = function (exp, context) {
     this.orig = context[exp];
 };
 
-Pointcut.prototype.pointcut = function () {
+Pointcut.prototype.joinpoint = function () {
     return this.context[this.exp];
 };
 
 Pointcut.prototype.arguments = function () {
-    return Array.from(this.pointcut().arguments);
+    return Array.from(this.joinpoint().arguments);
 };
 
 Pointcut.prototype.before = function (advice) {
@@ -61,20 +61,20 @@ Pointcut.prototype.proceed = function () {
 };
 
 /*
- function before(pointcut, advice){
+ function before(joinpoint, advice){
  return function () {
  try {
  advice();
  } catch (e) {
  console.log("Exception thrown from before advice: " + e.message);
  }
- return pointcut.apply(this, arguments);
+ return joinpoint.apply(this, arguments);
  }
  }
 
- function after(pointcut, advice){
+ function after(joinpoint, advice){
  return function () {
- let temp = pointcut.apply(this, arguments);
+ let temp = joinpoint.apply(this, arguments);
  try {
  advice(temp);
  } catch (e) {
@@ -94,12 +94,12 @@ class Pointcut {
         this.orig = context[exp];
     }
 
-    pointcut(){
+    joinpoint(){
         return this.context[this.exp];
     }
 
     arguments(){
-        return Array.from(this.pointcut().arguments);
+        return Array.from(this.joinpoint().arguments);
     }
 
     before(advice){
