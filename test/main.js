@@ -8,7 +8,6 @@ function doBefore(num) {
 
 function doAround(){
     console.log("doAround method called from the main script.");
-    return 3;
 }
 
 function doAfter(){

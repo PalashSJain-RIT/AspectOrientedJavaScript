@@ -23,7 +23,8 @@ Pointcut.prototype.before = function (advice) {
         try {
             advice();
         } catch (e) {
-            console.log("Exception thrown from before advice: " + e.message);
+            console.log("Exception thrown from " +
+                "before advice: " + e.message);
         }
         return p.apply(this, arguments);
     };
@@ -37,7 +38,8 @@ Pointcut.prototype.after = function (advice) {
         try {
             advice(temp);
         } catch (e) {
-            console.log("Exception thrown from after advice: " + e.message);
+            console.log("Exception thrown from " +
+                "after advice: " + e.message);
             throw e;
         }
         return temp;

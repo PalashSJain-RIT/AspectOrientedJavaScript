@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspect Oriented JavaScript</title>
+    <script src="../src/Aspect.js" type="application/javascript"></script>
+    <script src="main.js" type="application/javascript"></script>
+    <script src="alter.js" type="application/javascript"></script>
+
+    <script>
+        function demo_xtest(){
+            return Thing.prototype.xtest();
+        }
+
+        function demo_testA(){
+            return Thing.prototype.testA();
+        }
+
+        function demo_testB(){
+            return Thing.prototype.testB();
+        }
+    </script>
+
+</head>
+<body>
+
+<h3>Multiple Pointcuts</h3>
+<input type="button" value="demo_xTest" onclick="demo_xtest();"/>
+<input type="button" value="demo_testA" onclick="demo_testA();"/>
+<input type="button" value="demo_testB" onclick="demo_testB();"/>
+
+</body>
+</html>

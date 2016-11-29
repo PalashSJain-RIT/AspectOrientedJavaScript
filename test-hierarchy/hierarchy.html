@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspect Oriented JavaScript</title>
+    <script src="main.js" type="application/javascript"></script>
+    <script src="../src/Aspect.js" type="application/javascript"></script>
+    <script src="alter.js" type="application/javascript"></script>
+
+    <script>
+        function showThem(a, b){
+            console.log("[demo.html] showThem("+a+", "+b+")");
+            x = a + 2;
+            y = b + 2;
+            return showThemPlease(x, y);
+        }
+
+        function showThemAgain(a, b){
+            console.log("[demo.html] showThemAgain("+a+", "+b+")");
+            x = a + 2;
+            y = b + 2;
+            return showThemPlease(x, y);
+        }
+
+        function showThemPlease(x, y){
+            console.log("[demo.html] showThemPlease("+x+", "+y+")");
+            return demoStackTrace(x, y);
+        }
+    </script>
+
+</head>
+<body>
+
+<br><br>
+<span>
+    Passing values 2 and 3 to function addThem.<br>
+    These values are increased by 2 and then added.<br>
+</span>
+<input type="button" value="ShowThem(2,3) - Before" onclick="showThem(2,3)"/><br>
+<input type="button" value="ShowThemAgain(5,6) - Before" onclick="showThemAgain(5,6)"/>
+
+</body>
+</html>
