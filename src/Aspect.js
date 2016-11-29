@@ -17,7 +17,7 @@ Pointcut.prototype.arguments = function () {
 };
 
 Pointcut.prototype.before = function (advice) {
-    this.insideAround = false;
+    this.allowProceed = false;
     let p = this.context[this.name];
     this.context[this.name] = function () {
         try {
@@ -31,7 +31,7 @@ Pointcut.prototype.before = function (advice) {
 };
 
 Pointcut.prototype.after = function (advice) {
-    this.insideAround = false;
+    this.allowProceed = false;
     let p = this.context[this.name];
     this.context[this.name] = function () {
         let temp = p.apply(this, arguments);
@@ -47,12 +47,13 @@ Pointcut.prototype.after = function (advice) {
 };
 
 Pointcut.prototype.around = function (advice) {
-    this.insideAround = true;
+    this.allowProceed = true;
+    this.orig = this.context[this.name];
     this.context[this.name] = advice;
 };
 
 Pointcut.prototype.proceed = function () {
-    if (this.insideAround) {
+    if (this.allowProceed) {
         return this.orig.apply(this, this.arguments());
     }
     throw {
@@ -103,22 +104,22 @@ class Pointcut {
     }
 
     before(advice){
-        this.insideAround = false;
+        this.allowProceed = false;
         this.context[this.name] = before(this.context[this.name], advice);
     }
 
     after(advice){
-        this.insideAround = false;
+        this.allowProceed = false;
         this.context[this.name] = after(this.context[this.name], advice);
     }
 
     around(advice){
-        this.insideAround = true;
+        this.allowProceed = true;
         this.context[this.name] = advice;
     }
 
     proceed(){
-        if (this.insideAround) {
+        if (this.allowProceed) {
             return this.orig.apply(this, this.arguments());
         }
         throw {
