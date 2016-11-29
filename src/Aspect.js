@@ -2,14 +2,14 @@
  * Created by Palash on 11/24/2016.
  */
 
-var Pointcut = function (exp, context) {
-    this.exp = exp;
+var Pointcut = function (name, context) {
+    this.name = name;
     this.context = context;
-    this.orig = context[exp];
+    this.orig = context[name];
 };
 
 Pointcut.prototype.joinpoint = function () {
-    return this.context[this.exp];
+    return this.context[this.name];
 };
 
 Pointcut.prototype.arguments = function () {
@@ -18,8 +18,8 @@ Pointcut.prototype.arguments = function () {
 
 Pointcut.prototype.before = function (advice) {
     this.insideAround = false;
-    let p = this.context[this.exp];
-    this.context[this.exp] = function () {
+    let p = this.context[this.name];
+    this.context[this.name] = function () {
         try {
             advice();
         } catch (e) {
@@ -32,8 +32,8 @@ Pointcut.prototype.before = function (advice) {
 
 Pointcut.prototype.after = function (advice) {
     this.insideAround = false;
-    let p = this.context[this.exp];
-    this.context[this.exp] = function () {
+    let p = this.context[this.name];
+    this.context[this.name] = function () {
         let temp = p.apply(this, arguments);
         try {
             advice(temp);
@@ -48,7 +48,7 @@ Pointcut.prototype.after = function (advice) {
 
 Pointcut.prototype.around = function (advice) {
     this.insideAround = true;
-    this.context[this.exp] = advice;
+    this.context[this.name] = advice;
 };
 
 Pointcut.prototype.proceed = function () {
@@ -88,14 +88,14 @@ Pointcut.prototype.proceed = function () {
 
 /*
 class Pointcut {
-    constructor(exp, context) {
-        this.exp = exp;
+    constructor(name, context) {
+        this.name = name;
         this.context = context;
-        this.orig = context[exp];
+        this.orig = context[name];
     }
 
     joinpoint(){
-        return this.context[this.exp];
+        return this.context[this.name];
     }
 
     arguments(){
@@ -104,17 +104,17 @@ class Pointcut {
 
     before(advice){
         this.insideAround = false;
-        this.context[this.exp] = before(this.context[this.exp], advice);
+        this.context[this.name] = before(this.context[this.name], advice);
     }
 
     after(advice){
         this.insideAround = false;
-        this.context[this.exp] = after(this.context[this.exp], advice);
+        this.context[this.name] = after(this.context[this.name], advice);
     }
 
     around(advice){
         this.insideAround = true;
-        this.context[this.exp] = advice;
+        this.context[this.name] = advice;
     }
 
     proceed(){
