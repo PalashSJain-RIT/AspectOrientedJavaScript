@@ -28,7 +28,7 @@ pStackTrace.before(function(){
     console.log("[alter.js] " + "Arguments passed to " + pStackTrace.joinpoint().caller.caller.name + " function were " + Array.from(pStackTrace.joinpoint().caller.caller.arguments));
 });
 
-let pMultiply = new Pointcut("multiply", Thing.prototype);
+let pMultiply = new Pointcut("multiply", Calculator.prototype);
 pMultiply.around(function(){
     console.log("[alter.js] " + "AROUND STARTED WITH ARGUMENTS " + pMultiply.arguments());
     let temp = pMultiply.proceed();
@@ -37,7 +37,7 @@ pMultiply.around(function(){
     return temp;
 });
 
-let pDivide = new Pointcut("divide", Thing.prototype);
+let pDivide = new Pointcut("divide", Calculator.prototype);
 pDivide.before(function () {
     console.log("[alter.js] " + "BEFORE STARTED.");
     let digits = pDivide.arguments();
@@ -51,7 +51,7 @@ pDivide.before(function () {
     console.log("[alter.js] " + "BEFORE ENDED.");
 });
 
-let pSubtract = new Pointcut("subtract", Thing.prototype);
+let pSubtract = new Pointcut("subtract", Calculator.prototype);
 pSubtract.after(function(output){
     console.log("[alter.js] " + "AFTER STARTED.");
     let digits = pSubtract.arguments();
@@ -67,9 +67,9 @@ pTestClassDisplay.before(function () {
 });
 
 let pointcuts = [];
-for (let key in Thing.prototype){
+for (let key in Calculator.prototype){
     if (key.match(new RegExp("test"))) {
-        pointcuts[key] = new Pointcut(key, Thing.prototype);
+        pointcuts[key] = new Pointcut(key, Calculator.prototype);
         pointcuts[key].around(function(){
             let output = pointcuts[key].proceed();
             console.log(output);
