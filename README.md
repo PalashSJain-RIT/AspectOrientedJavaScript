@@ -5,9 +5,13 @@ AspectJ like advices can be utilized in JavaScript with the use of Aspect Orient
 Create Pointcut object
 -
 ```javascript
+// This creates pModifyAlert Pointcut object for 'alert' functionality of 'window' context
 var pModifyAlert = new Pointcut("alert", window);
 ```
-
+```javascript
+// This creates a thingPointcut for the function 'someFunction' of the class Thing.prototype
+var thingPointcut = new Pointcut("someFunction", Thing.prototype);
+```
 Advices supported
 -
 + before
