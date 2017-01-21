@@ -28,7 +28,7 @@ pModifyAlert.around(function(){
 + after
 ```javascript
 var pModifyAlert = new Pointcut("alert", window);
-pModifyAlert.before(function(){
-    console.log("This writes a message to console and then throws the alert message.");
+pModifyAlert.after(function(){
+    console.log("This throws the alert message and then writes a message to console.");
 });
 ```
